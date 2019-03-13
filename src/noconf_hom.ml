@@ -268,9 +268,7 @@ let derive_no_confusion_hom env sigma0 ~poly (ind,u as indu) =
     Global.set_strategy (ConstKey program_cst) Conv_oracle.transparent;
     let env = Global.env () in
     let sigma = Evd.from_env env in
-    let sigma, indu = Evd.fresh_global
-        ~rigid:Evd.univ_rigid (* Universe levels of the inductive family should not be tampered with. *)
-        env sigma (IndRef ind) in
+    let sigma, indu = Evd.fresh_global env sigma (IndRef ind) in
     let indu = destInd sigma indu in
     derive_noConfusion_package (Global.env ()) sigma ~poly indu indid
       ~prefix:"Hom" ~tactic:(noconf_hom_tac ()) program_cst
